@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import Product from '../components/Product';
-import prisma from '../lib/prisma';
+import Head from "next/head"
+import Product from "../components/Product"
+import prisma from "../lib/prisma"
 
 export default function Home({ products }) {
   return (
@@ -12,7 +12,9 @@ export default function Home({ products }) {
       </Head>
 
       <main className="p-10 mx-auto max-w-4xl">
-        <h1 className="text-6xl font-bold mb-4 text-center">Next.js Starter</h1>
+        <h1 className="text-6xl font-bold mb-4 text-center">
+          PlanetScale Next.js Starter
+        </h1>
         <p className="mb-20 text-xl text-center">
           🔥 Shop from the hottest items in the world 🔥
         </p>
@@ -25,7 +27,7 @@ export default function Home({ products }) {
 
       <footer></footer>
     </div>
-  );
+  )
 }
 
 export async function getStaticProps(context) {
@@ -33,14 +35,14 @@ export async function getStaticProps(context) {
     include: {
       category: true,
     },
-  });
+  })
 
   //convert decimal value to string to pass through as json
   const products = data.map((product) => ({
     ...product,
     price: product.price.toString(),
-  }));
+  }))
   return {
     props: { products },
-  };
+  }
 }
