@@ -1,8 +1,15 @@
 import Head from "next/head"
+import type { GetStaticProps, NextPage } from "next"
+
 import Product from "@/components/Product"
 import prisma from "@/lib/prisma"
+import type { ProductWithCategory } from "@/types/prisma"
 
-export default function Home({ products }) {
+type Props = {
+  products: ProductWithCategory[]
+}
+
+const HomePage: NextPage = ({ products }: Props) => {
   return (
     <div>
       <Head>
@@ -30,7 +37,7 @@ export default function Home({ products }) {
   )
 }
 
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.product.findMany({
     include: {
       category: true,
@@ -42,7 +49,10 @@ export async function getStaticProps(context) {
     ...product,
     price: product.price.toString(),
   }))
+
   return {
     props: { products },
   }
 }
+
+export default HomePage

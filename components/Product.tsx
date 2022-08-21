@@ -1,7 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
+import type { ProductWithCategory } from "@/types/prisma"
 
-export default function Product({ product }) {
+type Props = {
+  product: ProductWithCategory
+  key: number
+}
+
+const ProductPage: React.FC<Props> = ({ product }: Props) => {
   const { name, description, price, image, category } = product
 
   return (
@@ -20,7 +26,7 @@ export default function Product({ product }) {
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">{description}</p>
-        <p className="text-gray-900 text-xl">${price}</p>
+        <p className="text-gray-900 text-xl">${price.toString()}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
         <Link
@@ -33,3 +39,5 @@ export default function Product({ product }) {
     </div>
   )
 }
+
+export default ProductPage

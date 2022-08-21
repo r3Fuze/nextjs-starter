@@ -1,14 +1,23 @@
 import Head from "next/head"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
+
 import Product from "@/components/Product"
 import prisma from "@/lib/prisma"
+import type { ProductWithCategory } from "@/types/prisma"
 
-// TODO: TypeScript
-export default function Category({ products }) {
-  const router = useRouter()
-  const category = router.query.category
+// type ProductPriceNumber = Omit<ProductType, "price"> & {
+//   price: number
+// } & {
+//   category: CategoryType
+// }
 
+type Props = {
+  products: ProductWithCategory[]
+  category: string
+}
+
+const CategoryPage: NextPage = ({ products, category }: Props) => {
   return (
     <div>
       <Head>
@@ -37,11 +46,13 @@ export default function Category({ products }) {
   )
 }
 
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const category = context.params.category as string
+
   const data = await prisma.product.findMany({
     where: {
       category: {
-        name: context.params.category,
+        name: category,
       },
     },
     include: {
@@ -54,12 +65,13 @@ export async function getStaticProps(context) {
     ...product,
     price: product.price.toString(),
   }))
+
   return {
-    props: { products },
+    props: { products, category },
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await prisma.category.findMany()
   const paths = data.map((category) => {
     return {
@@ -74,3 +86,5 @@ export async function getStaticPaths() {
     fallback: false,
   }
 }
+
+export default CategoryPage
