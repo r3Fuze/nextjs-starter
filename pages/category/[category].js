@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Product from "@/components/Product"
 import prisma from "@/lib/prisma"
 
+// TODO: TypeScript
 export default function Category({ products }) {
   const router = useRouter()
   const category = router.query.category
@@ -20,9 +21,7 @@ export default function Category({ products }) {
         <h1 className="text-6xl font-bold mb-4 text-center capitalize">
           {category}
         </h1>
-        <Link href={`/`}>
-          <a>&larr; Go back</a>
-        </Link>
+        <Link href={`/`}>&larr; Go back</Link>
         <p className="mb-20 text-xl text-center">
           🔥 Shop from the hottest items in the world 🔥
         </p>

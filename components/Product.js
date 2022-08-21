@@ -23,10 +23,11 @@ export default function Product({ product }) {
         <p className="text-gray-900 text-xl">${price}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
-        <Link href={`/category/${category.name.toLowerCase()}`}>
-          <a className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            {category.name}
-          </a>
+        <Link
+          href={`/category/${category.name.toLowerCase()}`}
+          className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+        >
+          {category.name}
         </Link>
       </div>
     </div>
