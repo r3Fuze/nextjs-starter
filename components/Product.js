@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export default function Product({ product }) {
   const { name, description, price, image, category } = product
@@ -22,9 +23,11 @@ export default function Product({ product }) {
         <p className="text-gray-900 text-xl">${price}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          {category.name}
-        </span>
+        <Link href={`/category/${category.name.toLowerCase()}`}>
+          <a className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            {category.name}
+          </a>
+        </Link>
       </div>
     </div>
   )
