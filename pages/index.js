@@ -1,6 +1,6 @@
 import Head from "next/head"
-import Product from "../components/Product"
-import prisma from "../lib/prisma"
+import Product from "@/components/Product"
+import prisma from "@/lib/prisma"
 
 export default function Home({ products }) {
   return (
